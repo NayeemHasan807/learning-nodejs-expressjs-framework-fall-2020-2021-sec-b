@@ -9,23 +9,23 @@
 			<legend>Edit User</legend>
 			<table>
 				<tr>
+					<td>Id</td>
+					<td><input type="text" name="uid" value="<%=value[0].id%>" disabled></td>
+				</tr>
+				<tr>
 					<td>Username</td>
-					<td><input type="text" name="username" value="<%=username%>"></td>
+					<td><input type="text" name="username" value="<%=value[0].username %>"></td>
 				</tr>
 				<tr>
 					<td>Password</td>
-					<td><input type="password" name="password" value="<%=password%>"></td>
+					<td><input type="password" name="password" value="<%=value[0].password %>"></td>
 				</tr>
 				<tr>
-					<td>Email</td>
-					<td><input type="email" name="email" value="<%=email%>"></td>
+					<td>User Type</td>
+					<td><input type="text" name="type" value="<%=value[0].type %>"></td>
 				</tr>
 				<tr>
-					<td>Dept</td>
-					<td><input type="text" name="dept" value="<%=dept%>"></td>
-				</tr>
-				<tr>
-					<td></td>
+					<td><input type="hidden" name="id" value="<%=value[0].id%>"></td>
 					<td><input type="submit" name="submit" value="Update"></td>
 				</tr>
 			</table>
