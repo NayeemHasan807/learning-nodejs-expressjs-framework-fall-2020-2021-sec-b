@@ -30,7 +30,7 @@ router.get('/edit/:id', (req, res)=>{
 		id: req.params.id
 	};
 	userModel.getById(user, function(results){
-		console.log(results);
+		//console.log(results);
 		res.render('user/edit', {value: results});
 	});
 })
