@@ -29,4 +29,19 @@ router.get('/verifySignupRequest', (req, res)=>{
 
 })
 
+router.get('/profile', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		var data={
+			adminid : req.cookies['userid']  
+		};
+		adminModel.getMyInfo(data , function(results){
+			res.render('admin/profile', {user: results});
+		});
+	}else{
+		res.redirect('/login');
+	}
+})
+
+
+
 module.exports = router;
