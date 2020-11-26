@@ -23,7 +23,7 @@ router.post('/', (req, res)=>{
 			}else if(result[0].usertype == "Customer"){
 				res.cookie('userid', result[0].userid);
 				res.cookie('usertype', result[0].usertype);
-				res.redirect('/userController/userHome');
+				res.redirect('/customerController/customerHome');
 			}	
 		}else{
 			res.redirect('/login');

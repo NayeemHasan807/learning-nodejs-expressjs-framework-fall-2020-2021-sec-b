@@ -4,6 +4,7 @@ const bodyParser 					= require('body-parser');
 const exUpload 						= require('express-fileupload');
 const{ check , validationResult }	= require('express-validator');
 const signupModel					= require.main.require('./models/customerModel/signupModel');
+const customerModel					= require.main.require('./models/customerModel/customerModel');
 
 
 router.get('/signup', (req, res)=>{
@@ -104,6 +105,30 @@ router.post('/signup',[
 })
 
 
+router.get('/customerHome', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Customer"){
+		var data={
+			customerid : req.cookies['userid']  
+		};
+		customerModel.getMyProfile(data , function(results){
+			res.render('customer/customerHome', {user: results});
+		});
+	}else{
+		res.redirect('/login');
+	}
+})
 
+router.get('/profile', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Customer"){
+		var data={
+			customerid : req.cookies['userid']  
+		};
+		customerModel.getMyProfile(data , function(results){
+			res.render('customer/profile', {user: results});
+		});
+	}else{
+		res.redirect('/login');
+	}
+})
 
 module.exports = router;
