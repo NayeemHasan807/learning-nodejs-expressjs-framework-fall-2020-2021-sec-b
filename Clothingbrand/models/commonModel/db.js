@@ -2,7 +2,7 @@ const MongoClient	= require('mongodb').MongoClient;
 const ObjectID		= require('mongodb').ObjectID;
 const dbname		= 'Clothingbrand';
 const url			= 'mongodb://localhost:27017';
-//const mongoOptions	= {urlNewUrlParser : true};
+const mongoOptions	= {urlNewUrlParser : true};
 
 const state	= {
 	db : null
