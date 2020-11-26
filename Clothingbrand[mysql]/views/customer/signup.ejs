@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Signup</title>
+	<link rel="stylesheet" href="/assets/common/css/style.css">
+</head>
+<body>
+	<div id="workspace">
+		<h1 align='center'>Signup</h1>
+		<br/>
+		<form method="post" enctype="multipart/form-data">
+			<table id="view">
+				<tr>
+					<td>Customer ID</td>
+					<td><input type="text" id="customerid" name="customerid"></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type="password" id="password" name="password"></td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td><input type="text" id="name" name="name"></td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td><input type="text" id="email" name="email"></td>
+				</tr>
+				<tr>
+					<td>Gender</td>
+					<td>
+						<input type="radio" name="gender" id="male" value="Male"> Male
+					   	<input type="radio" name="gender" id="female" value="<Female"> Female
+					   	<input type="radio" name="gender" id="other" value="<Other"> Other
+					</td>
+				</tr>
+				<tr>
+					<td>Date of Birth</td>
+					<td><input type="text" id="dob" name="dob"></td>
+				</tr>
+				<tr>
+					<td>Phone Number</td>
+					<td><input type="text" id="phonenumber" name="phonenumber"></td>
+				</tr>
+				<tr>
+					<td>Address</td>
+					<td><input type="text" id="address" name="address"></td>
+				</tr>
+				<tr>
+					<td>Profile Picture</td>
+					<td><input type="file" id="image" name="image"></td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<a href="/login">
+							<button type="button">
+								Back
+							</button>
+						</a>
+						<input type="submit" name="submit" value="Submit">
+						<input type="reset" name="reset">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div id="result">
+		</div>
+	</div>
+</body>
+</html>

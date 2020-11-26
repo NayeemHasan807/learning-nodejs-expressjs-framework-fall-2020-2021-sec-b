@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="/assets/common/css/style.css">
+	<script type="text/javascript" src="/assets/common/js/jquery-3.5.1.js"></script>
+</head>
+<body>
+	<div id="workspace">
+		<h1 align='center'>Login</h1>
+		<br/>
+		<table id="view">
+			<form method="post">
+				<tr>
+					<td>UserID: <input type="text" id="userid" name="userid"></td>
+				</tr>
+				<tr>
+					<td>Password: <input type="password" id="password" name="password"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" name="submit" value="Login"></td>
+				</tr>
+			</form>
+		</table>
+		<div>
+			<a href="/customerController/signup">
+				<button type="button">
+					Sign Up
+				</button>
+			</a>
+		</div>
+		<div>
+			<a href="/">
+				<button type="button">
+					Back
+				</button>
+			</a>
+		</div>
+		<div id="result">
+		</div>
+	</div>
+</body>
+</html>
