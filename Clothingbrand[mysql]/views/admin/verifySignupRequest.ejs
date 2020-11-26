@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Verify Signup Request</title>
+	<link rel="stylesheet" href="/assets/common/css/style.css">
+</head>
+<body>
+	<%- include('NavBar') %>
+	<div id="workspace">
+		<h1 align='center'>Verify Signup Requests</h1>
+		<br/>
+		<table id="view">
+			<tr>
+				<td>Profile Picture</td>
+				<td>Customer ID</td>
+				<td>Password</td>
+				<td>Name</td>
+				<td>Email</td>
+				<td>Gender</td>
+				<td>Date Of Birth</td>
+				<td>Phone Number</td>
+				<td>Address</td>
+				<td>Action</td>
+			</tr>
+			<% for(var i=0; i< userlist.length; i++ ){ %>
+			<tr>
+				<td><img src="<%=userlist[i].profilepicture%>" alt="Avatar" width="100" height="100"></td>
+				<td><%= userlist[i].customerid %></td>
+				<td><%= userlist[i].password %></td>
+				<td><%= userlist[i].name %></td>
+				<td><%= userlist[i].email %></td>
+				<td><%= userlist[i].gender %></td>
+				<td><%= userlist[i].dob %></td>
+				<td><%= userlist[i].phonenumber %></td>
+				<td><%= userlist[i].address %></td>
+				<td>
+					<a href="/adminController/signupRequestApprove/<%=userlist[i].id%>">Approve</a>
+					<a href="/adminController/signupRequestApproveDecline/<%=userlist[i].id%>">Decline</a>
+				</td>
+			</tr>
+			<% } %>
+		</table>
+		<div id="searchresult">
+		</div>
+	</div>
+</body>
+</html>
