@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Update Profile</title>
+	<link rel="stylesheet" href="/assets/common/css/style.css">
+</head>
+<body>
+	<%- include('NavBar') %>
+	<div id="workspace">
+		<form method="post" enctype="multipart/form-data">
+		<fieldset>
+			<h2><%=user[0].name %></h2>
+			<br/>
+			<table id="view">
+				<tr>
+					<td>Customer Id :</td>
+					<td><input type='text' id='id' name='id' value='<%=user[0].customerid %>' disabled></td>
+				</tr>
+				<tr>
+					<td>Name :</td>
+					<td><input type='text' id='name' name='name' value='<%=user[0].name %>'></td>
+				</tr>
+				<tr>
+					<td>Email :</td>
+					<td><input type='text' id='email' name='email' value='<%=user[0].email %>'></td>
+				</tr>
+				<tr>
+					<td>Date Of Birth :</td>
+					<td><input type='text' id='dob' name='dob' value='<%=user[0].dob %>'></td>
+				</tr>
+				<tr>
+					<td>Phone Number :</td>
+					<td><input type='text' id='phonenumber' name='phonenumber' value='<%=user[0].phonenumber %>'></td>
+				</tr>
+				<tr>
+					<td>Address :</td>
+					<td><input type='text' id='address' name='address' value='<%=user[0].address %>'></td>
+				</tr>
+				<tr>
+					<td>Profile Picture :</td>
+					<td><input type='file' id='profilepicture' name='profilepicture'></td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<input type="submit" name="update" value="Update Profile">
+						<a href="/customerController/profile">
+							<button type="button">
+								Back
+							</button>
+						</a>
+						<input type="hidden" name="customerid" value="<%=user[0].customerid %>">
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+	</div>
+	<div id="result">
+	</div>
+</body>
+</html>

@@ -25,7 +25,7 @@ router.get('/adminHome', (req, res)=>{
 	}
 })
 
-//Signup
+//Signup List, Approve & Decline
 
 router.get('/verifySignupRequest', (req, res)=>{
 	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
@@ -176,7 +176,7 @@ router.post('/signupRequestDecline/:id', (req, res)=>{
 
 })
 
-//Customer
+//Customer List & Delete
 
 router.get('/customerList', (req, res)=>{
 	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
@@ -246,7 +246,7 @@ router.post('/deleteCustomer/:customerid', (req, res)=>{
 
 })
 
-//profile
+//profile View & update profile
 
 router.get('/profile', (req, res)=>{
 	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){

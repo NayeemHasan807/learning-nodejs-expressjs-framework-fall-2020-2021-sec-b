@@ -7,6 +7,8 @@ const signupModel					= require.main.require('./models/customerModel/signupModel
 const customerModel					= require.main.require('./models/customerModel/customerModel');
 
 
+//Signup Request
+
 router.get('/signup', (req, res)=>{
 	res.render('customer/signup');
 })
@@ -104,6 +106,7 @@ router.post('/signup',[
 		}
 })
 
+//Home
 
 router.get('/customerHome', (req, res)=>{
 	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Customer"){
@@ -118,6 +121,8 @@ router.get('/customerHome', (req, res)=>{
 	}
 })
 
+//Profile
+
 router.get('/profile', (req, res)=>{
 	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Customer"){
 		var data={
@@ -129,6 +134,127 @@ router.get('/profile', (req, res)=>{
 	}else{
 		res.redirect('/login');
 	}
+})
+
+router.get('/updateProfile', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Customer"){
+		var data={
+			customerid : req.cookies['userid']  
+		};
+		customerModel.getMyProfile(data , function(results){
+			res.render('customer/updateProfile', {user: results});
+		});
+	}else{
+		res.redirect('/login');
+	}
+})
+
+router.post('/updateProfile', [
+
+		check('name')
+			.notEmpty().withMessage('Can not be empty')
+			.isLength({ min: 5 }).withMessage('Minimumm length must need to be 5')
+		,
+		check('email')
+			.notEmpty().withMessage('Can not be empty')
+			.isEmail().withMessage('Must need to be a valid email example@example.com')
+		,
+		check('dob')
+			.notEmpty().withMessage('Can not be empty')
+			.isDate().withMessage('Must need to be YYYY-MM-DD')
+		,
+		check('phonenumber')
+			.notEmpty().withMessage('Can not be empty')
+			.isLength({ min: 9 }).withMessage('Minimumm length must need to be 9')
+		,
+		check('address')
+			.notEmpty().withMessage('Can not be empty')
+			.isLength({ min: 5 }).withMessage('Minimumm length must need to be 5')
+
+	] ,(req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Customer"){
+		
+		const errors = validationResult(req);
+		if(errors.isEmpty())
+		{
+			console.log(req.files);
+			if(req.files != null)
+			{
+				file = req.files.profilepicture;
+				console.log(file);
+				date = new Date();
+				file.mv('./assets/customer/profilepicture/'+date.getTime()+file.name, function(error)
+				{
+					if(error == null)
+					{	
+						var data = {
+							customerid : req.body.customerid,
+							name : req.body.name,
+							email : req.body.email,
+							dob : req.body.dob,
+							phonenumber : req.body.phonenumber,
+							address : req.body.address,
+							profilepicture : "/assets/customer/profilepicture/"+date.getTime()+file.name
+						};
+						console.log(data);
+						customerModel.updateMyProfile(data, function(status){
+							if(status)
+							{
+								res.redirect('/customerController/profile');
+							}
+							else
+							{
+								res.redirect('/customerController/updateProfile')
+							}
+						});
+					}
+					else
+					{
+						res.status(200).send({ result : 'error!' });
+					}
+				});
+			}
+			else
+			{
+				var data = {
+					customerid : req.body.customerid,
+					name : req.body.name,
+					email : req.body.email,
+					dob : req.body.dob,
+					phonenumber : req.body.phonenumber,
+					address : req.body.address,
+					profilepicture: null
+				};
+				console.log(data);
+				customerModel.updateMyProfile(data, function(status){
+					if(status)
+					{
+						res.redirect('/customerController/profile');
+					}
+					else
+					{
+						res.redirect('/customerController/updateProfile')
+					}
+				});
+			}
+		}
+		else
+		{
+			console.log(errors.array());
+			var em = errors.array();
+			var errormassage = ``;
+
+			for(i=0 ; i<em.length ; i++)
+			{
+				errormassage=errormassage+ em[i].param + " : " + em[i].msg +"<br/>"
+			}
+
+			res.status(200).send({ status : errormassage });
+		}
+	}else{
+		res.redirect('/login');
+	}
+
 })
 
 module.exports = router;
