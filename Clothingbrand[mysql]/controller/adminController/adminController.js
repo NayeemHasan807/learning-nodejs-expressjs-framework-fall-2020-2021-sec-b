@@ -395,4 +395,96 @@ router.get('/addProduct', (req, res)=>{
 
 })
 
+router.post('/addProduct', [
+	check('productid')
+		.notEmpty().withMessage('productid field can not be empty')
+		.isLength({ min: 4 }).withMessage('Minimumm length must need to be 4')
+	,
+	check('target')
+		.notEmpty().withMessage('target must need to be selected')
+	,
+	check('producttitle')
+		.notEmpty().withMessage('producttitle field can not be empty')
+		.isLength({ min: 4 }).withMessage('Minimumm length must need to be 4')
+	,
+	check('description')
+		.notEmpty().withMessage('description field can not be empty')
+		.isLength({ min: 30 }).withMessage('Minimumm length must need to be 30')
+	,
+	check('sizechart')
+		.notEmpty().withMessage('sizechart field can not be empty')
+	,
+	check('catagory')
+		.notEmpty().withMessage('catagory field can not be empty')
+	,
+	check('available')
+		.notEmpty().withMessage('available field can not be empty')
+		.isLength({ min: 1 }).withMessage('Minimumm length must need to be 1')
+
+	] , (req, res)=>{
+
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		const errors = validationResult(req);
+		if(errors.isEmpty())
+		{
+			console.log(req.body);
+			if(req.files != null)
+			{
+				file = req.files.image;
+				console.log(file);
+				date = new Date();
+				file.mv('./assets/common/products/'+date.getTime()+file.name, function(error){
+
+					if(error == null){
+						var data = {
+							productid : req.body.productid,
+							target : req.body.target,
+							catagory : req.body.catagory,
+							producttitle : req.body.producttitle,
+							description: req.body.description,
+							sizechart : req.body.sizechart,
+							productpicture : "/assets/common/products/"+date.getTime()+file.name,
+							available : req.body.available
+						};
+						console.log(data);
+						productModel.createProduct(data , function(status){
+							if(status)
+							{
+								res.status(200).send({ result : 'Product Added!' });
+							}
+							else
+							{
+								res.status(200).send({ result : 'Failed to submit registration request!' });	
+							}
+						})
+						
+					}else{
+						res.status(200).send({ result : 'error!' });
+					}
+				});
+			}
+			else
+			{
+				var errorstrign = `Must need to upload profile picture`;
+				res.status(200).send({ result : errorstrign });
+			}
+		}
+		else
+		{
+			console.log(errors.array());
+			var earray = errors.array();
+			var errorstrign = ``;
+
+			for(i=0 ; i<earray.length ; i++)
+			{
+				errorstrign=errorstrign+ earray[i].param + " : " + earray[i].msg +"<br/>"
+			}
+
+			res.status(200).send({ result : earray });
+		}
+	}else{
+		res.redirect('/login');
+	}
+})
+
 module.exports = router;
