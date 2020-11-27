@@ -62,6 +62,74 @@ router.get('/signupRequestApprove/:id', (req, res)=>{
 
 })
 
+router.post('/signupRequestApprove/:id', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		console.log('/signupRequestApprove');
+		var data = {
+			id : req.params.id
+		};
+		signupModel.getByIdSignUpRequest(data , function(results){
+			if(results.length > 0)
+			{
+				var customer = {
+					customerid : results[0].customerid,
+					name : results[0].name,
+					email : results[0].email,
+					gender : results[0].gender,
+					dob : results[0].dob,
+					phonenumber : results[0].phonenumber,
+					address : results[0].address,
+					profilepicture : results[0].profilepicture
+				};
+				var user = {
+					userid : results[0].customerid,
+					password : results[0].password,
+					usertype : "Customer" 
+				};
+				customerModel.createCustomer(customer , function(status){
+					if(status)
+					{
+						userModel.createUser(user , function(status){
+							if(status)
+							{
+								signupModel.deleteSignUpRequest(data , function(status){
+									if(status)
+									{
+										res.redirect('/adminController/verifySignupRequest');
+									}
+									else
+									{
+										var errormassage = `Failed to insert delete data from signuo!!`;
+										res.status(200).send({ status : errormassage });
+									}
+								});								
+							}
+							else
+							{
+								var errormassage = `Failed to insert data in customer table!!`;
+								res.status(200).send({ status : errormassage });
+							}
+						});
+					}
+					else
+					{
+						var errormassage = `Failed to insert data in customer table!!`;
+						res.status(200).send({ status : errormassage });
+					}
+				});
+			}
+			else
+			{
+				var errormassage = `Cant Approve singup request!!`;
+				res.status(200).send({ status : errormassage });
+			}
+		});
+	}else{
+		res.redirect('/login');
+	}
+
+})
+
 router.get('/signupRequestDecline/:id', (req, res)=>{
 	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
 		console.log('/signupRequestDecline');
