@@ -1,17 +1,23 @@
 const express 	= require('express');
-const adminModel = require.main.require('./models/adminModel/adminModel');
-const signupModel = require.main.require('./models/adminModel/signupModel');
 const router 	= express.Router();
 const bodyParser 	= require('body-parser');
 const{ check , validationResult } = require('express-validator');
 var exUpload 	= require('express-fileupload');
+
+const adminModel 	 = require.main.require('./models/adminModel/adminModel');
+const customerModel	 = require.main.require('./models/adminModel/customerModel');
+const signupModel	 = require.main.require('./models/adminModel/signupModel');
+const userModel		 = require.main.require('./models/userModel');
+
+
+//Admin Home
 
 router.get('/adminHome', (req, res)=>{
 	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
 		var data={
 			adminid : req.cookies['userid']  
 		};
-		adminModel.getMyInfo(data , function(results){
+		adminModel.getMyProfile(data , function(results){
 			res.render('admin/adminHome', {user: results});
 		});
 	}else{
@@ -19,6 +25,7 @@ router.get('/adminHome', (req, res)=>{
 	}
 })
 
+//Signup
 
 router.get('/verifySignupRequest', (req, res)=>{
 	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
@@ -32,6 +39,87 @@ router.get('/verifySignupRequest', (req, res)=>{
 
 })
 
+router.get('/signupRequestApprove/:id', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		console.log('/signupRequestApprove');
+		var data = {
+			id : req.params.id
+		};
+		signupModel.getByIdSignUpRequest(data , function(results){
+			if(results.length >0)
+			{
+				res.render('admin/signupRequestApprove', {list: results});
+			}
+			else
+			{
+				var errormassage = `Cant find singup request!!`;
+				res.status(200).send({ status : errormassage });
+			}
+		});
+	}else{
+		res.redirect('/login');
+	}
+
+})
+
+router.get('/signupRequestDecline/:id', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		console.log('/signupRequestDecline');
+		var data = {
+			id : req.params.id
+		};
+		signupModel.getByIdSignUpRequest(data , function(results){
+			if(results.length >0)
+			{
+				res.render('admin/signupRequestDecline', {list: results});
+			}
+			else
+			{
+				var errormassage = `Cant find singup request!!`;
+				res.status(200).send({ status : errormassage });
+			}
+		});
+	}else{
+		res.redirect('/login');
+	}
+
+})
+
+router.post('/signupRequestDecline/:id', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		console.log('/signupRequestDecline');
+		var data = {
+			id : req.params.id
+		};
+		signupModel.deleteSignUpRequest(data , function(status){
+			if(status)
+			{
+				res.redirect('/adminController/verifySignupRequest');
+			}
+			else
+			{
+				var errormassage = `Cant decline singup request!!`;
+				res.status(200).send({ status : errormassage });
+			}
+		});
+	}else{
+		res.redirect('/login');
+	}
+
+})
+//Customer
+
+router.get('/customerList', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		console.log('/customerList');
+		customerModel.getAllCustomerList(function(results){
+			res.render('admin/customerList', {customerlist: results});
+		});
+	}else{
+		res.redirect('/login');
+	}
+
+})
 
 //profile
 

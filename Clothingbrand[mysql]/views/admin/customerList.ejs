@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customer List</title>
+	<link rel="stylesheet" href="/assets/common/css/style.css">
+</head>
+<body>
+	<%- include('NavBar') %>
+	<div id="workspace">
+		<h1 align='center'>Customer List</h1>
+		<br/>
+		<table id="view">
+			<tr>
+				<td>Profile Picture</td>
+				<td>Customer ID</td>
+				<td>Name</td>
+				<td>Email</td>
+				<td>Gender</td>
+				<td>Date Of Birth</td>
+				<td>Phone Number</td>
+				<td>Address</td>
+				<td>Status</td>
+				<td>Action</td>
+			</tr>
+			<% for(var i=0; i< customerlist.length; i++ ){ %>
+			<tr>
+				<td><img src="<%=customerlist[i].profilepicture%>" alt="Avatar" width="100" height="100"></td>
+				<td><%= customerlist[i].customerid %></td>
+				<td><%= customerlist[i].password %></td>
+				<td><%= customerlist[i].name %></td>
+				<td><%= customerlist[i].email %></td>
+				<td><%= customerlist[i].gender %></td>
+				<td><%= customerlist[i].dob %></td>
+				<td><%= customerlist[i].phonenumber %></td>
+				<td><%= customerlist[i].address %></td>
+				<td><%= customerlist[i].status %></td>
+				<td>
+					<a href="/adminController/deleteCustomer/<%=customerlist[i].customerid%>">Delete</a>
+				</td>
+			</tr>
+			<% } %>
+		</table>
+		<div id="searchresult">
+		</div>
+	</div>
+</body>
+</html>

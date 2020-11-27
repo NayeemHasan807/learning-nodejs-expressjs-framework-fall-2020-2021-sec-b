@@ -15,5 +15,12 @@ module.exports ={
 			console.log(results);
 			callback(results);
 		});
+	},
+	deleteSignUpRequest: function(data , callback){
+		var sql = "DELETE FROM `signup` WHERE id=?";
+		db.execute(sql, [data.id], function(status){
+			console.log(status);
+			callback(status);
+		});
 	}
 }

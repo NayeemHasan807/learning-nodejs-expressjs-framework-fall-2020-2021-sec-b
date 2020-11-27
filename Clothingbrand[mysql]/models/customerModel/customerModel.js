@@ -13,7 +13,6 @@ module.exports ={
 	updateMyProfile: function(data , callback){
 		if(data.profilepicture==null)
 		{
-			console.log("------------------------------------------");
 			var sql = "UPDATE `customer` SET `name`=?,`email`=?,`dob`=?,`phonenumber`=?,`address`=? WHERE customerid=?";
 			db.execute(sql, [data.name,data.email,data.dob,data.phonenumber,data.address,data.customerid] ,function(status){
 				console.log(status);

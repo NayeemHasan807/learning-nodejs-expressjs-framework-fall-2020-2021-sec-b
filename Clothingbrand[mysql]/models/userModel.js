@@ -11,5 +11,21 @@ module.exports = {
 				callback(results,false);
 			}
 		});
+	},
+
+	createUser: function(data , callback){
+		var sql = "insert into user VALUES (?,?,?,?)";
+		db.execute(sql, ['',data.userid,data.password,data.usertype], function(status){
+			console.log(status);
+			callback(status);
+		});
+	},
+
+	deleteUser: function(data , callback){
+		var sql = "DELETE FROM `user` WHERE userid=?";
+		db.execute(sql, [data.userid], function(status){
+			console.log(status);
+			callback(status);
+		});
 	}
 }
