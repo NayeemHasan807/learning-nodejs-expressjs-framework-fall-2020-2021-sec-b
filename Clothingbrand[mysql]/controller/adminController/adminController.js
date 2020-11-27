@@ -107,6 +107,7 @@ router.post('/signupRequestDecline/:id', (req, res)=>{
 	}
 
 })
+
 //Customer
 
 router.get('/customerList', (req, res)=>{
@@ -114,6 +115,62 @@ router.get('/customerList', (req, res)=>{
 		console.log('/customerList');
 		customerModel.getAllCustomerList(function(results){
 			res.render('admin/customerList', {customerlist: results});
+		});
+	}else{
+		res.redirect('/login');
+	}
+
+})
+
+router.get('/deleteCustomer/:customerid', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		console.log('/deleteCustomerpost/:customerid');
+		var data = {
+			customerid : req.params.customerid
+		};
+		customerModel.getByIdCustomer(data , function(results){
+			if(results.length >0)
+			{
+				res.render('admin/deleteCustomer', {list: results});
+			}
+			else
+			{
+				var errormassage = `Cant find customer!!`;
+				res.status(200).send({ status : errormassage });
+			}
+		});
+	}else{
+		res.redirect('/login');
+	}
+
+})
+
+router.post('/deleteCustomer/:customerid', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		console.log('/deleteCustomer');
+		var data = {
+			customerid : req.params.customerid
+		};
+		customerModel.deleteCustomer(data , function(status){
+			if(status)
+			{
+				userModel.deleteUser({ userid : req.params.customerid} , function(status) {
+					if(status)
+					{
+						res.redirect('/adminController/customerList');
+					}
+					else
+					{
+						var errormassage = `Cant delete this user!!`;
+						res.status(200).send({ status : errormassage });
+					}
+				});
+			}
+			else
+			{
+				var errormassage = `Cant delete this customer!!`;
+				res.status(200).send({ status : errormassage });
+			}
 		});
 	}else{
 		res.redirect('/login');

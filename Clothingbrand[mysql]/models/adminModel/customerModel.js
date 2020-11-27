@@ -10,6 +10,14 @@ module.exports ={
 		});
 	},
 
+	getByIdCustomer: function(data , callback){
+		var sql = "select * from customer where customerid=?";
+		db.getResults(sql, [data.customerid], function(results){
+			console.log(results);
+			callback(results);
+		});
+	},
+
 	createCustomer: function(data , callback){
 		var sql = "insert into customer VALUES (?,?,?,?,?,?,?,?,?,?)";
 		db.execute(sql, ['',data.customerid,data.name,data.email,data.gender,data.dob,data.phonenumber,data.address,data.profilepicture,"Valid"], function(status){
