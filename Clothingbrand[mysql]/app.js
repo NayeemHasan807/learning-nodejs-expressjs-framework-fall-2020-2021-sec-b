@@ -11,6 +11,7 @@ const customerController		= require('./controller/customerController/customerCon
 const{check,validationResult }	= require('express-validator');
 const exUpload 					= require('express-fileupload');
 
+
 //config
 app.use(exUpload());
 app.set('view engine', 'ejs');

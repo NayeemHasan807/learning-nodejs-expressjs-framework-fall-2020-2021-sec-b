@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2020 at 06:06 PM
+-- Generation Time: Nov 27, 2020 at 07:12 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -76,6 +76,24 @@ INSERT INTO `customer` (`id`, `customerid`, `name`, `email`, `gender`, `dob`, `p
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `id` int(50) NOT NULL,
+  `productid` varchar(50) NOT NULL,
+  `target` varchar(50) NOT NULL,
+  `catagory` varchar(50) NOT NULL,
+  `producttitle` varchar(50) NOT NULL,
+  `description` varchar(50) NOT NULL,
+  `sizechart` varchar(50) NOT NULL,
+  `productpicture` varchar(300) NOT NULL,
+  `available` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `signup`
 --
 
@@ -131,6 +149,12 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `signup`
 --
 ALTER TABLE `signup`
@@ -157,6 +181,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `customer`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `signup`

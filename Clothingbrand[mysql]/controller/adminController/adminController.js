@@ -7,6 +7,7 @@ var exUpload 	= require('express-fileupload');
 const adminModel 	 = require.main.require('./models/adminModel/adminModel');
 const customerModel	 = require.main.require('./models/adminModel/customerModel');
 const signupModel	 = require.main.require('./models/adminModel/signupModel');
+const productModel	 = require.main.require('./models/adminModel/productModel');
 const userModel		 = require.main.require('./models/userModel');
 
 
