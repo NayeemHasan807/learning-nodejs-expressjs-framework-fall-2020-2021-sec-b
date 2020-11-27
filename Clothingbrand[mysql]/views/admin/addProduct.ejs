@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Products</title>
+	<link rel="stylesheet" href="/assets/common/css/style.css">
+</head>
+<body>
+	<%- include('NavBar') %>
+	<div id="workspace">
+		<h1 align='center'>Add Products</h1>
+		<br/>
+		<form method="post" enctype="multipart/form-data">
+			<table id="view">
+				<tr>
+					<td>Product ID</td>
+					<td><input type="text" id="productid" name="productid"></td>
+				</tr>
+				<tr>
+					<td>Target</td>
+					<td>
+						<select id="target" name="target">
+			   			<option value="">None</option>
+		   				<option value="Male">Male</option>
+		   				<option value="Female">Female</option>
+			   			</select>
+			   		</td>
+				</tr>
+				<tr>
+					<td>Catagory</td>
+					<td><input type="text" id="catagory" name="catagory"></td>
+				</tr>
+				<tr>
+					<td>Product Title</td>
+					<td><input type="text" id="producttitle" name="producttitle"></td>
+				</tr>
+				<tr>
+					<td>Description</td>
+					<td><textarea rows="5" cols="80" id="description" name="description"></textarea></td>
+				</tr>
+				<tr>
+					<td>Size Chart</td>
+					<td><input type="text" id="sizechart" name="sizechart"></td>
+				</tr>
+				<tr>
+					<td>Product Picture</td>
+					<td><input type="file" id="image" name="image"></td>
+				</tr>
+				<tr>
+					<td>Available</td>
+					<td><input type="text" id="available" name="available"></td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<a href="/adminController/adminHome">
+							<button type="button">
+								Back
+							</button>
+						</a>
+						<input type="submit" name="submit" value="Submit">
+						<input type="reset" name="reset">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div id="result">
+		</div>
+	</div>
+</body>
+</html>

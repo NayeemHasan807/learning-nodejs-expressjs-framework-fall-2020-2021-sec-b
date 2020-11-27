@@ -382,4 +382,17 @@ router.post('/updateProfile', [
 
 })
 
+
+//Product
+
+router.get('/addProduct', (req, res)=>{
+	if(req.cookies['userid'] != null && req.cookies['usertype'] == "Admin"){
+		console.log('/addProduct');
+			res.render('admin/addProduct');
+	}else{
+		res.redirect('/login');
+	}
+
+})
+
 module.exports = router;
